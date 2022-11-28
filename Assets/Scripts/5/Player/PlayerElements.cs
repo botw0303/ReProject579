@@ -20,6 +20,13 @@ public class PlayerElements : MonoBehaviour
     public bool ElementWater { get; set; }
     private PlayerSkill playerSkill;
     private int elementsCount = 0;
+
+    [SerializeField] AudioSource elementSource;
+    [SerializeField] AudioClip windClip;
+    [SerializeField] AudioClip fireClip;
+    [SerializeField] AudioClip waterClip;
+    [SerializeField] AudioClip earthClip;
+
     private void Start()
     {
         playerSkill = GetComponentInParent<PlayerSkill>();

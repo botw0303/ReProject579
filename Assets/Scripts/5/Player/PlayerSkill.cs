@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class PlayerSkill : MonoBehaviour
 {
     [SerializeField] GameObject golemAttackPrefab;
@@ -15,6 +16,8 @@ public class PlayerSkill : MonoBehaviour
     [SerializeField] LayerMask boss;
 	[SerializeField] GameObject CameraManager;
 	[SerializeField] GameObject[] HitEffect;
+    [SerializeField] Slider HpSlider;
+    [SerializeField] Slider MpSlider;
 	CameraShakeEffect cameraShaker;
 	private BoxCollider2D collider;
 	private PlayerDetect playerDetect;
@@ -57,9 +60,19 @@ public class PlayerSkill : MonoBehaviour
 
     void Update()
     {
+        if(CurrentHp <= 0)
+        {
+            SceneManager.LoadScene(0);
+        }
+        HpSlider.value = CurrentHp / MaxHp;
+        MpSlider.value = CurrentMp / MaxMp;
         if(CurrentMp < MaxMp)
         {
-            CurrentMp += Time.deltaTime * 2;
+            CurrentMp += Time.deltaTime * 2f;
+        }
+        if(CurrentHp < MaxHp)
+        {
+            CurrentHp += Time.deltaTime * 0.1f;
         }
         PlayerGolemAttack();
         PlayerAirAnimation();
@@ -105,6 +118,7 @@ public class PlayerSkill : MonoBehaviour
 			if (EnemyAttackPos == 1) Instantiate(HitEffect[0], transform.position, Quaternion.Euler(0, 0, 0));
 			else if (EnemyAttackPos == -1) Instantiate(HitEffect[0], transform.position, Quaternion.Euler(0, 180, 0));
 			Debug.Log("¾Æ¾ß");
+            CurrentHp -= 1;
             StartCoroutine("Hit");
 			cameraShaker.VibrateForTime(0.5f);
         }

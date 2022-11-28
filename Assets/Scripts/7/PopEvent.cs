@@ -42,6 +42,8 @@ public class PopEvent : MonoBehaviour
     public TextMeshProUGUI creditText1;
     public float creditDuration = 5f;
     public bool gameisEnd = false;
+    public GameObject buttonImage;
+    
 
     bool lif;
 
@@ -168,6 +170,7 @@ public class PopEvent : MonoBehaviour
 
         if(boss1Clear && boss2Clear && boss3Clear)
         {
+            Destroy(buttonImage);
             creditButton.SetActive(true);
         }
     }
@@ -252,6 +255,6 @@ public class PopEvent : MonoBehaviour
 
     public void QuitToManu()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(1);
     }
 }

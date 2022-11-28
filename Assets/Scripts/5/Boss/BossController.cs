@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+public enum Boss
+{
+    one = 1,
+    two = 2,
+    three=3
+}
 public class BossController : MonoBehaviour
 {
     [SerializeField] int bossHp;
@@ -31,10 +37,13 @@ public class BossController : MonoBehaviour
     public bool death;
     public bool canHit;
 
+    public Boss boss = Boss.one;
+
     [SerializeField] AudioSource bossSource;
     [SerializeField] AudioClip bossAttack1Clip;
     [SerializeField] AudioClip bossAttack2Clip;
     [SerializeField] AudioClip bossAttack3Clip;
+    PopEvent popevent;
 
     void Start()
     {
@@ -42,6 +51,7 @@ public class BossController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         collider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        popevent = GameObject.Find("Player/UI_Canvas").GetComponent<PopEvent>();
     }
     void Update()
     {
@@ -156,6 +166,7 @@ public class BossController : MonoBehaviour
     }
     public void TakeHit(float AttackPos)
     {
+        
         if (canHit)
         {
 			if (AttackPos == 1) Instantiate(HitEffect, transform.position, Quaternion.Euler(0, 0, 0));
@@ -167,6 +178,18 @@ public class BossController : MonoBehaviour
         {
             death = true;
             Destroy(collider);
+            if(boss == Boss.one)
+            {
+                popevent.boss1Clear = true;
+            }
+            else if(boss == Boss.two)
+            {
+                popevent.boss2Clear = true;
+            }
+            else if(boss == Boss.three)
+            {
+                popevent.boss3Clear = true;
+            }
         }
     }
     IEnumerator CanHit(float time)

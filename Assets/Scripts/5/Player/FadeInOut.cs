@@ -19,7 +19,7 @@ public class FadeInOut : MonoBehaviour
         float fadein = 1;
         while(fadein >= 0)
         {
-            fadein -= 0.005f;
+            fadein -= 0.01f;
             yield return new WaitForSeconds(0.01f);
             image.color = new Color(0, 0, 0, fadein);
         }
