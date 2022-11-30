@@ -7,7 +7,7 @@ public class gamestart : MonoBehaviour
 {
     public void GameStart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void GameQuit()

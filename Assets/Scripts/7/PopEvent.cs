@@ -255,6 +255,6 @@ public class PopEvent : MonoBehaviour
 
     public void QuitToManu()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 }
